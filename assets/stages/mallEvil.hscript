@@ -1,0 +1,14 @@
+function onLoad()
+{
+	var bg:BGSprite = new BGSprite('stages/mallEvil/evilBG', -400, -500, 0.2, 0.2);
+	bg.scale.set(0.8, 0.8);
+	bg.updateHitbox();
+	add(bg);
+bg.antialiasing=true;
+	var evilTree:BGSprite = new BGSprite('stages/mallEvil/evilTree', 300, -300, 0.2, 0.2);
+	add(evilTree);
+evilTree.antialiasing=true;
+	var evilSnow:BGSprite = new BGSprite('stages/mallEvil/evilSnow', -200, 700);
+	add(evilSnow);
+	evilSnow.antialiasing=true;
+}
