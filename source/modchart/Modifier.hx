@@ -30,6 +30,7 @@ typedef RenderInfo = {
 }
 
 class Modifier {
+	public static var offsetY:Float=0;
 	public var modMgr:ModManager;
 	@:allow(modchart.ModManager)
 	var target_percents:Array<Float> = [0, 0];
@@ -220,7 +221,7 @@ class Modifier {
 	// note/receptor is self-explanatory
     public function updateReceptor(beat:Float, receptor:StrumNote, player:Int){}
 	public function updateNote(beat:Float, note:Note, player:Int){}
-	public function getPos(diff:Float, tDiff:Float, beat:Float, pos:Vector3, column:Int, player:Int, obj:FlxSprite, field:NoteField):Vector3{return pos;}
+	public function getPos(diff:Float, tDiff:Float, beat:Float, pos:Vector3, column:Int, player:Int, obj:FlxSprite, field:NoteField):Vector3{offsetY=diff;return pos;}
 	public function modifyVert(beat:Float, vert:Vector3, idx:Int, obj:FlxSprite, pos:Vector3, player:Int, column:Int, field:NoteField):Vector3{return vert;}
 	public function getExtraInfo(diff:Float, tDiff:Float, beat:Float, info:RenderInfo, obj:FlxSprite, player:Int, column:Int):RenderInfo{return info;}
 	public function isRenderMod():Bool{return false;} // Override and return true if your modifier uses modifyVert or getExtraInfo

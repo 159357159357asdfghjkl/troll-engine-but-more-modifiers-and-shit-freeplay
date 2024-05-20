@@ -56,8 +56,8 @@ class AccelModifier extends NoteModifier
 
 		if (getSubmodValue("boomerang",player) != 0)
 		{
-			//can't work without bugs
-			pos.y = (-1 * visualDiff * visualDiff / effectHeight) + 1.5 * visualDiff;
+			var oldpos = PlayState.instance.strumLineNotes.members[player == 1 ? [0,1,2,3] : [4,5,6,7]].y;
+			pos.y = oldpos+(-1 * visualDiff * visualDiff / effectHeight) + 1.5 * visualDiff;
 		}
 		return pos;
 	}
