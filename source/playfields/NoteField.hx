@@ -33,7 +33,7 @@ class NoteField extends FieldBase
 
 	public var holdSubdivisions:Int = Std.int(ClientPrefs.holdSubdivs) + 1;
 	public var optimizeHolds = ClientPrefs.optimizeHolds;
-
+	var visDiff:Float = 0;
 	public function new(field:PlayField, modManager:ModManager)
 	{
 		super(0, 0);
@@ -113,7 +113,7 @@ class NoteField extends FieldBase
 		}
 		curDecBeat = curDecStep / 4;
 
-		zoom = modManager.getFieldZoom(baseZoom, curDecBeat, (Conductor.songPosition - ClientPrefs.noteOffset), modNumber, this);
+		zoom = modManager.getFieldZoom(baseZoom, curDecBeat, (Conductor.songPosition - ClientPrefs.noteOffset), modNumber, this, visDiff);
 		var notePos:Map<Note, Vector3> = [];
 		var taps:Array<Note> = [];
 		var holds:Array<Note> = [];
@@ -131,6 +131,7 @@ class NoteField extends FieldBase
 				var speed = modManager.getNoteSpeed(daNote, modNumber, songSpeed);
 				var diff = Conductor.songPosition - daNote.strumTime;
 				var visPos = -((Conductor.visualPosition - daNote.visualTime) * speed);
+				visDiff = visPos;
 				if (visPos > drawDist)
 					continue;
 				if (daNote.wasGoodHit && daNote.tail.length > 0 && daNote.unhitTail.length > 0)

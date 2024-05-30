@@ -544,7 +544,7 @@ class ModManager {
 		return pos;
     }
 
-	public function getFieldZoom(zoom:Float, beat:Float, songPos:Float, player:Int, field:NoteField, ?exclusions:Array<String>):Float
+	public function getFieldZoom(zoom:Float, beat:Float, songPos:Float, player:Int, field:NoteField, diff:Float, ?exclusions:Array<String>):Float
 	{
 		if (exclusions == null)
 			exclusions = [];
@@ -556,7 +556,7 @@ class ModManager {
 
 			var mod:Modifier = miscmodRegister.get(name);
 			if (mod != null && mod.affectsField()) 
-				zoom = mod.getFieldZoom(zoom, beat, songPos, player, field);
+				zoom = mod.getFieldZoom(zoom, beat, songPos, player, field, diff);
 		}
 
 		return zoom;
