@@ -15,19 +15,20 @@ class AccelModifier extends NoteModifier
 	{
 		return a + (b - a) * c;
 	}
-	var player:Int;
+	//var player:Int;
 	override function getName()
 		return 'boost';
 	var expandSeconds:Float;
+	/*override function shouldUpdate()return true;
 	override function update(elapsed:Float, beat:Float){
-		var last:Float = 0;
-		var time:Float = Conductor.songPosition/1000;
-		expandSeconds += (time - last) + (expandSeconds % ((Math.PI * 2) / getSubmodValue("expandPeriod", player) + 1));
-		last = time;
-	}
+    var lastTime:Float = 0;
+    var time:Float = Conductor.instance.songPosition / 1000 * 4294.967296 / 1000000; // fast time math
+    expandSeconds += time - lastTime;
+    expandSeconds %= ((Math.PI * 2) / (getSubmodValue('expandPeriod',player) + 1));
+	}*/
 	override function getPos(visualDiff:Float, timeDiff:Float, beat:Float, pos:Vector3, data:Int, player:Int, obj:FlxSprite, field:NoteField)
 	{
-		this.player = player;
+		//this.player = player;
 		if (getOtherValue("movePastReceptors", player) == 0 && visualDiff<=0)
             return pos;
         
@@ -37,7 +38,6 @@ class AccelModifier extends NoteModifier
 		var parabolaY = getSubmodValue("parabolaY",player);
 		var effectHeight = 720;
 
-		var fScrollSpeed:Float = PlayState.SONG.speed;
 		var yAdjust:Float = 0;
 		var scrollSpeeds:Float = 0;
 		var reverse:Dynamic = modMgr.register.get("reverse");
@@ -70,17 +70,17 @@ class AccelModifier extends NoteModifier
 		pos.y += yAdjust * mult;
 
 
-		if(getSubmodValue("expand",player)!=0){
-			var expandMultiplier = CoolUtil.scale(FlxMath.fastCos(expandSeconds * 1.2 * (getSubmodValue("expandPeriod", player) + 1)),0, 1, 1, -1);
+		/*if(getSubmodValue("expand",player)!=0){
+			var expandMultiplier = CoolUtil.scale(FlxMath.fastCos(expandSeconds * 1.2 * (getSubmodValue("expandPeriod", player) + 1)),-1,1,0.75,1.75);
 			fScrollSpeed *= CoolUtil.scale(getSubmodValue("expand", player), 0, 1, 1,expandMultiplier);
-		}
-		pos.y *= fScrollSpeed;
+		}*/
+		//speed is in yoffset, i don't want to change it anymore, waiting for my vslice modchart system,it will has many mods
 		return pos;
 	}
 
 	override function getSubmods()
 	{
-		var subMods:Array<String> = ["brake", "wave", "wavePeriod","boomerang","expand","expandPeriod","parabolaY"];
+		var subMods:Array<String> = ["brake", "wave", "wavePeriod","boomerang",/*"expand","expandPeriod",*/"parabolaY"];
 		return subMods;
 	}
 }
